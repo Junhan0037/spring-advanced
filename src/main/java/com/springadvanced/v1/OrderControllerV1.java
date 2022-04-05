@@ -1,6 +1,6 @@
 package com.springadvanced.v1;
 
-import com.springadvanced.trace.HelloTraceV1;
+import com.springadvanced.trace.hellotrace.HelloTraceV1;
 import com.springadvanced.trace.TraceStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

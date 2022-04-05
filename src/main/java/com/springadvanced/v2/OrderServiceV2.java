@@ -1,6 +1,6 @@
 package com.springadvanced.v2;
 
-import com.springadvanced.trace.HelloTraceV2;
+import com.springadvanced.trace.hellotrace.HelloTraceV2;
 import com.springadvanced.trace.TraceId;
 import com.springadvanced.trace.TraceStatus;
 import lombok.RequiredArgsConstructor;
