@@ -11,6 +11,7 @@ import org.springframework.aop.MethodMatcher;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.aop.support.NameMatchMethodPointcut;
 
 import java.lang.reflect.Method;
 
@@ -89,6 +90,31 @@ public class AdvisorTest {
         public boolean matches(Method method, Class<?> targetClass, Object... args) {
             throw new UnsupportedOperationException();
         }
+    }
+
+    /**
+     * 스프링이 제공하는 포인트컷
+     * NameMatchMethodPointcut: 메서드 이름을 기반으로 매칭한다. 내부에서는 PatternMatchUtils 를 사용한다.
+     * JdkRegexpMethodPointcut: JDK 정규 표현식을 기반으로 포인트컷을 매칭한다.
+     * TruePointcut: 항상 참을 반환한다.
+     * AnnotationMatchingPointcut: 어노테이션으로 매칭한다.
+     * AspectJExpressionPointcut: aspectJ 표현식으로 매칭한다.
+     */
+    @Test
+    @DisplayName("스프링이 제공하는 포인트컷")
+    void advisorTest3() {
+        ServiceImpl target = new ServiceImpl();
+        ProxyFactory proxyFactory = new ProxyFactory(target);
+
+        NameMatchMethodPointcut pointcut = new NameMatchMethodPointcut();
+        pointcut.setMappedName("save");
+
+        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, new TimeAdvice());
+        proxyFactory.addAdvisor(advisor);
+        ServiceInterface proxy = (ServiceInterface) proxyFactory.getProxy();
+
+        proxy.save();
+        proxy.find();
     }
 
 }
